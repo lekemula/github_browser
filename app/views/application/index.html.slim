@@ -1,0 +1,7 @@
+.row
+  .col-md-6.col-lg-offset-3.text-middle
+    .panel.panel-default
+      .panel-body
+        = form_for :repository do |f|
+          .form-group
+            = f.text_field :q, class: 'form-control', placeholder: 'Search Repositories'
