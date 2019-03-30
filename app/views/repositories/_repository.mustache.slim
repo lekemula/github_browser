@@ -1,0 +1,19 @@
+.panel.panel-default.js-repository-row
+  .panel-body
+    .row
+      .col-xs-2
+        | {{#owner}}
+        img.img-responsive src="{{avatar_url}}"
+        | {{/owner}}
+      .col-sm-4
+        h4
+          a href='{{url}}' target='_blank'
+            | {{name}}
+      .col-sm-8
+        p 
+          | {{description}}
+    .row
+      .col-sm-8.col-sm-offset-2
+        .label.label-success Stars {{stars_count}}
+        .label.label-default Watchers {{watchers_count}}
+        .label.label-danger Active Issues {{open_issues_count}}

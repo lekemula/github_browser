@@ -13,5 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
+//= require mustache
 //= require turbolinks
 //= require_tree .
+
+Application = window.Application || {}

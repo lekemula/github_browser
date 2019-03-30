@@ -2,6 +2,12 @@
   .col-md-6.col-lg-offset-3.text-middle
     .panel.panel-default
       .panel-body
-        = form_for :repository do |f|
+        = form_tag repositories_path(format: :json), method: :get, remote: true, class: 'js-repositories-search-form'
           .form-group
-            = f.text_field :q, class: 'form-control', placeholder: 'Search Repositories'
+            = text_field_tag :term, nil, class: 'form-control', placeholder: 'Search Term'
+          = submit_tag('Search Repos', { class: 'btn btn-default', data: { disable_with: 'Searching...'} } )
+
+    .js-repositories-search-results
+    
+    script type="text/html" id="repository_template"
+      = render 'repositories/repository.mustache'

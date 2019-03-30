@@ -1,2 +1,6 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.label + .label {
+  margin-left: 5px;
+}
