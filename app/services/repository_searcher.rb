@@ -1,4 +1,9 @@
 class RepositorySearcher
+  BaseError = Class.new(StandardError)
+  EndpointFailedError = Class.new(BaseError)
+  UnreachableError = Class.new(BaseError)
+
+  
   attr_reader :term, :client
 
   def initialize(term:, client: GithubClient.new)
@@ -7,10 +12,27 @@ class RepositorySearcher
   end
 
   def call
-    parse_response client.search_repositories(term: term)
+    parse_response handle_response { client.search_repositories(term: term) }
   end
 
   private
+
+  def handle_response
+    response = yield
+    
+    case response.code 
+      when 200
+        return response
+      when 404
+        raise BaseError.new('Search endpoint not found')
+      when 500...600
+        raise EndpointFailedError.new('API failed to return the results')
+    end
+  rescue HTTParty::Error
+    raise UnreachableError.new('Unable to connect with endpoint')
+  else
+    response
+  end
   
   def parse_response(response)
     response_hash = response.parsed_response
